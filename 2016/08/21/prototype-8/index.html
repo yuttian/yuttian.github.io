@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>深入理解javascript原型和闭包(8)——简述执行上下文(上) | Reno&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="什么是“执行上下文”（也叫做“执行上下文环境”）？暂且不下定义">
+<meta name="keywords" content="原型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解javascript原型和闭包(8)——简述执行上下文(上)">
+<meta property="og:url" content="http://renoblog.github.io/2016/08/21/prototype-8/index.html">
+<meta property="og:site_name" content="Reno&#39;s Blog">
+<meta property="og:description" content="什么是“执行上下文”（也叫做“执行上下文环境”）？暂且不下定义">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://images.cnitblog.com/blog/138012/201409/221743466231490.png">
+<meta property="og:image" content="http://images.cnitblog.com/blog/138012/201409/221744084828533.png">
+<meta property="og:image" content="http://images.cnitblog.com/blog/138012/201409/221744319354566.png">
+<meta property="og:image" content="http://images.cnitblog.com/blog/138012/201409/221745066078791.png">
+<meta property="og:image" content="http://images.cnitblog.com/blog/138012/201409/221746370927602.png">
+<meta property="og:image" content="http://images.cnitblog.com/blog/138012/201409/221747371078703.png">
+<meta property="og:image" content="http://images.cnitblog.com/blog/138012/201409/221746583578531.png">
+<meta property="og:updated_time" content="2016-08-21T15:10:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入理解javascript原型和闭包(8)——简述执行上下文(上)">
+<meta name="twitter:description" content="什么是“执行上下文”（也叫做“执行上下文环境”）？暂且不下定义">
+<meta name="twitter:image" content="http://images.cnitblog.com/blog/138012/201409/221743466231490.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Reno&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+    <script src="/js/jquery-3.1.1.min.js"></script>
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          rootUrl: '/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/head.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+            <h1 class="header-author"><a href="/">雷诺</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">在你的长安，寻找我的江南</p>
+        
+        
+        
+        <div id="switch-btn" class="switch-btn">
+            <div class="icon">
+                <div class="icon-ctn">
+                    <div class="icon-wrap icon-house" data-idx="0">
+                        <div class="birdhouse"></div>
+                        <div class="birdhouse_holes"></div>
+                    </div>
+                    <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                        <div class="ribbon"></div>
+                    </div>
+                    
+                    <div class="icon-wrap icon-link hide" data-idx="2">
+                        <div class="loopback_l"></div>
+                        <div class="loopback_r"></div>
+                    </div>
+                    
+                    
+                    <div class="icon-wrap icon-me hide" data-idx="3">
+                        <div class="user"></div>
+                        <div class="shoulder"></div>
+                    </div>
+                    
+                </div>
+
+            </div>
+            <div class="tips-box hide">
+                <div class="tips-arrow"></div>
+                <ul class="tips-inner">
+                    <li>菜单</li>
+                    <li>标签</li>
+                    
+                    <li>友情链接</li>
+                    
+                    
+                    <li>关于我</li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                            
+                            <li><a href="/">博客首页</a></li>
+                            
+                            <li><a href="/about">在线留言</a></li>
+                            
+                            <li><a href="/tags">静心阅读</a></li>
+                            
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                            <a class="fl mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=mayqq6qhoamgoNno6Lf69vQ"
+                               title="mail">mail</a>
+                            
+                            <a class="fl github" target="_blank" href="https://github.com/yuttian"
+                               title="github">github</a>
+                            
+                            <a class="fl zhihu" target="_blank" href="https://www.zhihu.com/people/lei-nuo-56-10"
+                               title="zhihu">zhihu</a>
+                            
+                            <a class="fl weibo" target="_blank" href="http://weibo.com/huluobusiji"
+                               title="weibo">weibo</a>
+                            
+                            <a class="fl rss" target="_blank" href="/atom.xml"
+                               title="rss">rss</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/原型/" style="font-size: 20px;">原型</a> <a href="/tags/变量提升/" style="font-size: 10px;">变量提升</a> <a href="/tags/数据类型/" style="font-size: 10px;">数据类型</a>
+                    </div>
+                </section>
+                
+
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                        
+                        <a target="_blank" class="main-nav-link switch-friends-link"
+                           href="http://tangqingzhen.com/">Travistom</a>
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+                    <section class="switch-part switch-part4">
+                        
+                        <div id="js-aboutme">90后，双鱼座普通男青年！爱折腾，爱运动，爱美文，更爱游离于错综复杂的编码与逻辑中，无法自拔。</div>
+                    </section>
+                    
+            </div>
+        </div>
+    </header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">雷诺</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/head.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">雷诺</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">在你的长安，寻找我的江南</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">博客首页</a></li>
+                
+                    <li><a href="/about">在线留言</a></li>
+                
+                    <li><a href="/tags">静心阅读</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=mayqq6qhoamgoNno6Lf69vQ" title="mail">mail</a>
+                    
+                        <a class="github" target="_blank" href="https://github.com/yuttian" title="github">github</a>
+                    
+                        <a class="zhihu" target="_blank" href="https://www.zhihu.com/people/lei-nuo-56-10" title="zhihu">zhihu</a>
+                    
+                        <a class="weibo" target="_blank" href="http://weibo.com/huluobusiji" title="weibo">weibo</a>
+                    
+                        <a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="frontend-prototype-8" class="article article-type-frontend" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/08/21/prototype-8/" class="article-date">
+      <time datetime="2016-08-21T15:10:25.000Z" itemprop="datePublished">2016-08-21</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      深入理解javascript原型和闭包(8)——简述执行上下文(上)
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/javascript/">javascript</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原型/">原型</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>什么是“执行上下文”（也叫做“执行上下文环境”）？暂且不下定义<br><a id="more"></a></p>
+<p>先看一段代码：</p>
+<p><img alt="图1" src="http://images.cnitblog.com/blog/138012/201409/221743466231490.png" align="middle"></p>
+<p>第一句报错，a未定义，很正常。第二句、第三句输出都是undefined，说明浏览器在执行console.log(a)时，已经知道了a是undefined，但却不知道a是10（第三句中）。</p>
+<p>在一段js代码拿过来真正一句一句运行之前，浏览器已经做了一些“准备工作”，其中就包括对变量的声明，而不是赋值。变量赋值是在赋值语句执行的时候进行的。可用下图模拟：</p>
+<p><img alt="图2" src="http://images.cnitblog.com/blog/138012/201409/221744084828533.png" align="middle"></p>
+<p>这是第一种情况。</p>
+<p>下面还有。先来个简单的。</p>
+<p><img alt="图3" src="http://images.cnitblog.com/blog/138012/201409/221744319354566.png" align="middle"></p>
+<p>有js开发经验的朋友应该都知道，你无论在哪个位置获取this，都是有值的。至于this的取值情况，比较复杂，会专门拿出一篇文章来讲解。</p>
+<p>与第一种情况不同的是：第一种情况只是对变量进行声明（并没有赋值），而此种情况直接给this赋值。这也是“准备工作”情况要做的事情之一。</p>
+<p>下面还有。。。第三种情况。</p>
+<p>在第三种情况中，需要注意代码注释中的两个名词——“函数表达式”和“函数声明”。虽然两者都很常用，但是这两者在“准备工作”时，却是两种待遇。</p>
+<p><img alt="图4" src="http://images.cnitblog.com/blog/138012/201409/221745066078791.png" align="middle"></p>
+<p>看以上代码。“函数声明”时我们看到了第二种情况的影子，而“函数表达式”时我们看到了第一种情况的影子。</p>
+<p>没错。在“准备工作”中，对待函数表达式就像对待“ var a = 10 ”这样的变量一样，只是声明。而对待函数声明时，却把函数整个赋值了。</p>
+<p>好了，“准备工作”介绍完毕。</p>
+<p>我们总结一下，在“准备工作”中完成了哪些工作：</p>
+<ol>
+<li>变量、函数表达式——变量声明，默认赋值为undefined；</li>
+<li>this——赋值；</li>
+<li>函数声明——赋值；</li>
+</ol>
+<p>这三种数据的准备情况我们称之为“执行上下文”或者“执行上下文环境”。<br>这里插一句题外话：通过以上三种情况，你可能会联想到网上的有些考js语法的题目/面试题。的确，几乎每个js语法题中都有这种题目出现。之前你遇到这种题目是不是靠背诵来解决？背过了，隔几天又忘记了。——任何问题，都要去追根溯源，要知道这个问题是真正出自哪一块知识点，要真正去理解。光靠背诵是没用的。</p>
+<p>细心的朋友可能会发现，我们上面所有的例子都是在全局环境下执行的。</p>
+<p>其实，javascript在执行一个代码段之前，都会进行这些“准备工作”来生成执行上下文。这个“代码段”其实分三种情况——全局代码，函数体，eval代码。</p>
+<p>这里解释一下为什么代码段分为这三种。</p>
+<p>所谓“代码段”就是一段文本形式的代码。</p>
+<p>首先，全局代码是一种，这个应该没有非议，本来就是手写文本到 <code>&lt;script&gt;</code> 标签里面的。</p>
+<p><img alt="图5" src="http://images.cnitblog.com/blog/138012/201409/221746370927602.png" align="middle"></p>
+<p>其次，eval代码接收的也是一段文本形式的代码。</p>
+<p><img alt="图6" src="http://images.cnitblog.com/blog/138012/201409/221747371078703.png" align="middle"></p>
+<p>最后，函数体是代码段是因为函数在创建时，本质上是 new Function(…) 得来的，其中需要传入一个文本形式的参数作为函数体。</p>
+<p><img alt="图7" src="http://images.cnitblog.com/blog/138012/201409/221746583578531.png" align="middle"></p>
+<p>这样解释应该能理解了。</p>
+<p>最后，eval不常用，也不推荐大家用。</p>
+<p>下一节我们介绍函数的情况，并一起总结一下执行上下文到底包含哪些内容。敬请期待。</p>
+<p>此文转载自<a target="_blank" href="http://www.cnblogs.com/wangfupeng1988/p/3986420.html">http://www.cnblogs.com/wangfupeng1988/p/3986420.html</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/08/21/prototype-8/">深入理解javascript原型和闭包(8)——简述执行上下文(上)</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 雷诺 的个人博客">雷诺</a></p>
+        <p><span>发布时间:</span>2016年08月21日 - 23时10分</p>
+        <p><span>最后更新:</span>2016年08月21日 - 23时10分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/08/21/prototype-8/" title="深入理解javascript原型和闭包(8)——简述执行上下文(上)">http://renoblog.github.io/2016/08/21/prototype-8/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://renoblog.github.io/2016/08/21/prototype-8/　　作者: 雷诺" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/08/22/prototype-9/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          深入理解javascript原型和闭包(9)——简述执行上下文(下)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/08/20/prototype-7/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">深入理解javascript原型和闭包(7)——原型的灵活性</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<!--<input type="button" class="fa fa-hand-o-up" id="tocButton"   title="点击按钮隐藏或者显示文章目录">-->
+<a id="tocButton"  href="#" ><i class="fa fa-list-alt"></i></a>
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+    $("#toc").slideUp(350);
+    $(".switch-btn, .switch-area").fadeIn(500);
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2016/08/21/prototype-8/" data-title="深入理解javascript原型和闭包(8)——简述执行上下文(上)" data-url="http://renoblog.github.io/2016/08/21/prototype-8/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"renoblog"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
+
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/08/22/prototype-9/" title="上一篇: 深入理解javascript原型和闭包(9)——简述执行上下文(下)">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2016/08/20/prototype-7/" title="下一篇: 深入理解javascript原型和闭包(7)——原型的灵活性">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/08/22/prototype-9/">深入理解javascript原型和闭包(9)——简述执行上下文(下)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/21/prototype-8/">深入理解javascript原型和闭包(8)——简述执行上下文(上)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/20/prototype-7/">深入理解javascript原型和闭包(7)——原型的灵活性</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/19/prototype-6/">深入理解javascript原型和闭包(6)——继承</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/19/prototype-5/">深入理解javascript原型和闭包(5)——instanceof</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/18/prototype-4/">深入理解javascript原型和闭包(4)——隐士原型</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/17/prototype-3/">深入理解javascript原型和闭包(3)——prototype原型</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/16/prototype-2/">深入理解javascript原型和闭包(2)——函数和对象的关系</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/15/prototype-1/">javascript原型和闭包(1)—— 一切都是对象</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/14/hoisting/">javascript 变量提升</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/03/datatype/">javascript六种数据类型及隐式转换</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2017 雷诺
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/Yuttina/hexo-theme-mint" target="_blank">mint</a> by reno
+            </div>
+        </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 1;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+  </div>
+</body>
+</html>
