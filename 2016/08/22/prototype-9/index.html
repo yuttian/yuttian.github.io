@@ -73,13 +73,14 @@ this——赋值；
 <p>说完this，接着说执行上下文栈。</p>
 <p>此文转载自<a target="_blank" href="http://www.cnblogs.com/wangfupeng1988/p/3987563.html">http://www.cnblogs.com/wangfupeng1988/p/3987563.html</a></p>
 </div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2016-08-22</span><i class="fa fa-tag"></i><a href="/categories/javascript/" title="javascript" class="tag">javascript </a><a href="/tags/原型/" title="原型" class="tag">原型 </a></div></div></div></div><div class="share"><div class="evernote"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></div><div class="weibo"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></div><div class="twitter"><a href="http://twitter.com/home?status=,http://renoblog.github.io/2016/08/22/prototype-9/,Reno's Blog,简述执行上下文(下),;" class="fa fa-twitter"></a></div></div><div class="pagination"><ul class="clearfix"><li class="next pagbuttons"><a role="navigation" href="/2016/08/21/prototype-8/" title="简述执行上下文(上)" class="btn">下一篇</a></li></ul></div><a id="comments"></a><div id="SOHUCS" sid="简述执行上下文(下)"></div><script>(function() {
-    var appid = 'cyt9zhtBM',
-    conf = 'prod_9fcbf2bc050f5177875a7dce24c528ae';
-    var ds = document.createElement('script');
-    ds.type = 'text/javascript';ds.async = true;
-    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid';
-    ds.charset = 'UTF-8';
-    (document.getElementsByTagName('head')[0] 
-     || document.getElementsByTagName('body')[0]).appendChild(ds);
+    var appid = '你的APP ID',
+    conf = '你的APP KEY';
+    var doc = document,
+    s = doc.createElement('script'),
+    h = doc.getElementsByTagName('head')[0] || doc.head || doc.documentElement;
+    s.type = 'text/javascript';
+    s.charset = 'utf-8';
+    s.src =  'http://assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid;
+    h.insertBefore(s,h.firstChild);
     window.SCS_NO_IFRAME = true;
 })();</script></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>

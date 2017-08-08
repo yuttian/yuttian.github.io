@@ -29,13 +29,14 @@
 <p>个人邮件及社交网站等信息见边栏底部；<br>有什么留言或问题直接在文末留下评论即可。</p>
 </blockquote>
 </div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2017-08-08</span></div></div></div></div><a id="comments"></a><div id="SOHUCS" sid="轻语呢喃"></div><script>(function() {
-    var appid = 'cyt9zhtBM',
-    conf = 'prod_9fcbf2bc050f5177875a7dce24c528ae';
-    var ds = document.createElement('script');
-    ds.type = 'text/javascript';ds.async = true;
-    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid';
-    ds.charset = 'UTF-8';
-    (document.getElementsByTagName('head')[0] 
-     || document.getElementsByTagName('body')[0]).appendChild(ds);
+    var appid = '你的APP ID',
+    conf = '你的APP KEY';
+    var doc = document,
+    s = doc.createElement('script'),
+    h = doc.getElementsByTagName('head')[0] || doc.head || doc.documentElement;
+    s.type = 'text/javascript';
+    s.charset = 'utf-8';
+    s.src =  'http://assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid;
+    h.insertBefore(s,h.firstChild);
     window.SCS_NO_IFRAME = true;
 })();</script></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>
