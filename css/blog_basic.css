@@ -26,12 +26,14 @@
   font-weight: bold;
   text-align: center;
   background-color: #f66;
-  font-family: 'Dosis', 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif
 }
 
 .content > .post > .post-content > p {
   word-wrap: break-word;
   word-break: break-all;
+  line-height: 2em;
+  letter-spacing: 0.2px;
+  padding-bottom: 0px !important;
 }
 
 #ds-thread,#disqus_thread,#cloud-tie-wrapper {

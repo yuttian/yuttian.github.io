@@ -1486,26 +1486,26 @@ jQuery.support = (function() {
 				!parseFloat( ( window.getComputedStyle( marginDiv, null ) || {} ).marginRight );
 		}
 
-		if ( typeof div.style.zoom !== "undefined" ) {
-			// Support: IE<8
-			// Check if natively block-level elements act like inline-block
-			// elements when setting their display to 'inline' and giving
-			// them layout
-			div.innerHTML = "";
-			div.style.cssText = divReset + "width:1px;padding:1px;display:inline;zoom:1";
-			support.inlineBlockNeedsLayout = ( div.offsetWidth === 3 );
+		// if ( typeof div.style.zoom !== "undefined" ) {
+		// 	// Support: IE<8
+		// 	// Check if natively block-level elements act like inline-block
+		// 	// elements when setting their display to 'inline' and giving
+		// 	// them layout
+		// 	div.innerHTML = "";
+		// 	div.style.cssText = divReset + "width:1px;padding:1px;display:inline;zoom:1";
+		// 	support.inlineBlockNeedsLayout = ( div.offsetWidth === 3 );
 
-			// Support: IE6
-			// Check if elements with layout shrink-wrap their children
-			div.style.display = "block";
-			div.innerHTML = "<div></div>";
-			div.firstChild.style.width = "5px";
-			support.shrinkWrapBlocks = ( div.offsetWidth !== 3 );
+		// 	// Support: IE6
+		// 	// Check if elements with layout shrink-wrap their children
+		// 	div.style.display = "block";
+		// 	div.innerHTML = "<div></div>";
+		// 	div.firstChild.style.width = "5px";
+		// 	support.shrinkWrapBlocks = ( div.offsetWidth !== 3 );
 
-			// Prevent IE 6 from affecting layout for positioned elements #11048
-			// Prevent IE from shrinking the body in IE 7 mode #12869
-			body.style.zoom = 1;
-		}
+		// 	// Prevent IE 6 from affecting layout for positioned elements #11048
+		// 	// Prevent IE from shrinking the body in IE 7 mode #12869
+		// 	body.style.zoom = 1;
+		// }
 
 		body.removeChild( container );
 

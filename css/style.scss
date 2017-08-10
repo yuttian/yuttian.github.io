@@ -1,21 +1,24 @@
 html {
-	background-color: #fff;
+	background-color: #f7f7f7;
 	-webkit-font-smoothing: antialiased;
 }
 
 body {
-	color: rgba(0, 0, 0, 0.5);
-	font-family: 'PingHei', 'PingFang SC', Helvetica Neue, 'Work Sans', 'Hiragino Sans GB', 'Microsoft YaHei', SimSun, sans-serif;
-	font-size: 15px;
+	color: #333;
+	font-family: 'source-han-sans-simplified-c', 'PingFang SC', 'Hiragino Sans GB', 'PingHei',
+        'Open Sans', sans-serif, Helvetica Neue, 'Work Sans', 'Microsoft YaHei',
+        SimSun;
+	font-size: 16px;
 	width: 100%;
-	margin: 0 auto 30px auto;
-	background-color: #fff;
+	background-color:#f7f7f7;
+	margin: 0;
+	padding: 0;
 
 }
 p {
-	line-height: 1.9em;
+	line-height: 2em;
 	font-weight: 400;
-	font-size: 14px;
+	margin: 0;
 }
 
 a {
@@ -122,15 +125,76 @@ a:hover, a:active {
 
 /*animation ends*/
 
+/*main css start*/
+.main{
+	background: #FFFFFF;
+    box-shadow: 0px 10px 20px 0px rgba(236, 236, 236, 0.86);
+    width: 820px;
+    margin: 0 auto;
+    margin-top: 60px;
 
-
-
-.content {
-	height: auto;
-	float: right;
-	width: 60%;
-	margin-top:60px;
 }
+.header {
+          width: 720px;
+          padding: 100px 0px 140px 0px;
+          margin: 0 auto;
+          -webkit-background-size: cover;
+          background-size: cover; }
+          .header .site_title_container {
+            padding: 0 0px; }
+            .header .site_title_container h1 {
+              line-height: 1;
+              margin: 0; }
+              .header .site_title_container a {
+                text-decoration: none;
+                font-weight: bold; }
+                .header .site_title_container .site_title {
+                  width: 100px;
+                  float: left; }
+                  .header .site_title_container .site_title a {
+                    font-size: 28px;
+                    width: 65px;
+                    letter-spacing: 2px;
+                    line-height: 1.2;
+                    color: #000; }
+                    .header .site_title_container .site_title a:hover {
+                      color: #666; }
+                  .header .site_title_container .site_title a.long {
+                    width: 95px; }
+                    .header .site_title_container .site_title a.long_long {
+                      width: 160px; }
+            .header .site_title_container .description {
+              font-size: 14px;
+              color: #424242;
+              float: right; }
+              .header .site_title_container .description .sub_title {
+                font-weight: normal !important;
+                float: none !important;
+                font-family: 'source-han-sans-simplified-c', 'PingFang SC', 'Hiragino Sans GB', 'PingHei',
+        'Open Sans', sans-serif, Helvetica Neue, 'Work Sans', 'Microsoft YaHei',
+        SimSun !important; }
+          .header .my_socials {
+            list-style: none;
+            font-size: 14px;
+            float: right;
+            margin: 5px 0px; }
+            .header .my_socials i {
+              margin-left: 10px; }
+              .header .my_socials a {
+                color: #5f5f5f;
+                font-size: 12px;
+                float: none;
+                cursor: pointer; }
+                .header .my_socials a:hover {
+                  color: #000; }
+/*main ends*/
+
+
+ .content {
+      width: 720px;
+      padding: 0px 20px;
+      height: auto;
+      margin: 0 auto; }
 
 .page-top{
 	width: 60%;
@@ -268,9 +332,10 @@ a:hover, a:active {
 
 .post {
 	background-color: #FFF;
-	margin: 30px;
+	margin-top: 50px;
 
 	.post-title{
+
 		h1 {
 			text-transform: uppercase;
 			font-size: 30px;
@@ -280,12 +345,12 @@ a:hover, a:active {
 
 		h2 {
 			text-transform: uppercase;
-			letter-spacing: 1px;
-			font-size: 28px;
-			line-height: 1;
-			font-weight: 600;
-			color: #5f5f5f;
-
+            letter-spacing: 1px;
+            font-size: 1.4rem;
+            line-height: 1;
+            font-weight: 600;
+            color: #1F1F1F;
+            margin: 0px 0px 6px 0px;
 		}
 
 		h3 {
@@ -299,17 +364,17 @@ a:hover, a:active {
 
 		}
 		a {
-			text-decoration: none;
-			letter-spacing: 1px;
-			color: #5f5f5f;
-			&:hover{
-				text-decoration: underline;
-			}
+		   text-decoration: none;
+           letter-spacing: 1px;
+           color: #1F1F1F;
+           font-size: 1.4rem;
+           line-height: 28px; 
 
 		}
 	}
 
 	.post-content{
+		word-break: break-all;
 		a {
 			text-decoration: none;
 			letter-spacing: 1px;
@@ -330,15 +395,17 @@ a:hover, a:active {
 	}
 
 	.post-footer {
-		padding: 0 0 30px 0;
-		border-bottom: 1px solid #f2f2f2;
+		padding: 20px 0 40px 0;
+        border-bottom: 1px solid #F3F3F3; 
 
 
 		.meta {
 			max-width: 100%;
 			height: 25px;
 			color: #bbbbbb;
-
+			.field {
+				 margin-right: 10px;
+				 }
 			.info {
 				float: left;
 				font-size: 12px;
@@ -463,18 +530,36 @@ a:hover, a:active {
 
 .footer {
 	clear: both;
-	text-align: center;
-	font-size: 10px;
-	margin: 0 auto;
-	bottom: 0;
-	position: absolute;
-	width: 100%;
-	padding-bottom: 20px;
+    max-width: 780px;
+    text-align: center;
+    font-size: 12px;
+    padding: 60px 0px;
+    margin: 0 auto;
 	a {
-		color: #A6A6A6;
+		 color: #A6A6A6;
+         margin: 0px 12px;;
 	}
 	a:hover{
-		color: #4786D6;
+		color: #1F1F1F;
+	}
+	.powered_by{
+		margin: 0;
+        padding-top: 10px;
+		font-size: 11px; 
+	}
+	.powered_by a{
+        color: #cccccc;
+        margin: 0px 2px;
+	}
+	.powered_by a:hover {
+		color: #1F1F1F; 
+	}
+	.footer_slogan{
+		padding-top: 25px;
+        padding-bottom: 10px;
+        color: #000;
+        font-size: 16px;
+        letter-spacing: 1px; 
 	}
 	span{
 	}
@@ -635,7 +720,6 @@ a.btn {
 	text-align: center;
 	text-decoration: none;
 	cursor: pointer;
-	border: 1px solid rgba(0, 0, 0, 0.15);
 	white-space: nowrap;
 	font-weight: 400;
 	font-style: normal;
