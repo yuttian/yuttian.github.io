@@ -623,35 +623,39 @@ a.btn {
   text-align: center;
   padding-top: 50px; }
 
-@media screen and (max-width: 960px) {
-  .sidebar {
-    width: 100%;
-    position: absolute;
-    border-right: none;
-    z-index: 1; }
-    .sidebar .logo-title {
-      padding-top: 120px; }
-      .sidebar .logo-title .title img {
-        width: 100px; }
-      .sidebar .logo-title .title h3 {
-        font-size: 20px; }
+@media screen and (max-width: 900px) {
+  .main {
+    width: 95%;
+    margin-top: 20px; }
 
-  .page-top {
-    width: 100%; }
-
-  .post-title h3 {
-    line-height: 1.6; }
+  .header {
+    width: 92%; }
 
   .content {
-    margin-top: 420px;
-    width: 100%;
-    z-index: 2;
-    position: absolute; }
+    width: 92%; }
 
-  .footer {
-    display: none; }
+  .post_page {
+    padding-top: 0px; }
 
-  .share {
-    display: grid; } }
+  .footer a {
+    margin: 0px 6px; }
+
+  .about {
+    padding-bottom: 400px; }
+
+  .post {
+    margin-top: 40px; }
+
+  .post_footer {
+    padding-bottom: 30px; } }
+@media screen and (min-width: 1600px) {
+  .main {
+    width: 1000px; }
+
+  .header {
+    width: 820px; }
+
+  .content {
+    width: 820px; } }
 
 /*# sourceMappingURL=style.css.map */
