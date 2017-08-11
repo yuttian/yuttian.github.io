@@ -263,33 +263,38 @@ a:hover, a:active {
 .post {
   background-color: #FFF;
   margin-top: 50px; }
-  .post .post-title h1 {
-    text-transform: uppercase;
-    font-size: 30px;
-    letter-spacing: 5px;
-    line-height: 1; }
-  .post .post-title h2 {
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 1.4rem;
-    line-height: 1;
-    font-weight: 600;
-    color: #1F1F1F;
-    margin: 0px 0px 6px 0px; }
-  .post .post-title h3 {
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    line-height: 1;
-    font-weight: 600;
-    color: #464646;
-    font-size: 22px;
-    margin: 0; }
-  .post .post-title a {
-    text-decoration: none;
-    letter-spacing: 1px;
-    color: #1F1F1F;
-    font-size: 1.4rem;
-    line-height: 28px; }
+  .post .post-title {
+    padding-bottom: 16px; }
+    .post .post-title h1 {
+      text-transform: uppercase;
+      font-size: 30px;
+      letter-spacing: 5px;
+      line-height: 1; }
+    .post .post-title h2 {
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 1.4rem;
+      line-height: 1;
+      font-weight: 600;
+      color: #1F1F1F;
+      margin: 0px 0px 6px 0px; }
+    .post .post-title h3 {
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      line-height: 1;
+      font-weight: 600;
+      color: #464646;
+      font-size: 22px;
+      margin: 0; }
+    .post .post-title a {
+      text-decoration: none;
+      letter-spacing: 1px;
+      color: #1F1F1F;
+      font-size: 1.4rem;
+      line-height: 28px; }
+    .post .post-title span {
+      color: rgba(0, 0, 0, 0.44);
+      font-size: 12px; }
   .post .post-content {
     word-break: break-all; }
     .post .post-content a {
@@ -298,13 +303,6 @@ a:hover, a:active {
       color: #4786D6; }
     .post .post-content a:hover {
       color: #2F69B3; }
-    .post .post-content h3 {
-      color: #5F5F5F;
-      font-size: 22px;
-      font-weight: 600; }
-    .post .post-content h4 {
-      color: #5F5F5F;
-      font-size: 16px; }
   .post .post-footer {
     padding: 20px 0 40px 0;
     border-bottom: 1px solid #F3F3F3; }
@@ -348,7 +346,7 @@ a:hover, a:active {
           text-decoration: none; }
 
 .pagination {
-  margin: 30px;
+  margin: 30px 0 0 0;
   padding: 0px 0 56px 0;
   border-bottom: 1px solid #f2f2f2; }
   .pagination ul {
@@ -421,15 +419,16 @@ a:hover, a:active {
 
 .list-with-title {
   font-size: 14px;
-  margin: 30px;
+  margin: 0px;
   padding: 0; }
   .list-with-title li {
     list-style-type: none;
     padding: 0; }
   .list-with-title .listing-title {
-    font-size: 24px;
-    color: #666666;
-    font-weight: 600;
+    font-size: 1.4rem;
+    color: #1F1F1F;
+    font-weight: bold;
+    padding-top: 10px;
     line-height: 2.2em; }
   .list-with-title .listing {
     padding: 0; }
@@ -439,13 +438,13 @@ a:hover, a:active {
         float: right;
         color: #C5C5C5; }
       .list-with-title .listing .listing-post a {
-        color: #8F8F8F; }
+        color: #424242; }
         .list-with-title .listing .listing-post a:hover {
           color: #4786D6; }
 
 /* share */
 .share {
-  margin: 0px 30px;
+  margin: 30px 0px 0px 0px;
   display: inline-flex; }
 
 .evernote {
