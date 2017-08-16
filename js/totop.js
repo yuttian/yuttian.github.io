@@ -6,7 +6,6 @@ $(document).ready((function(_this) {
         $(window).scroll(function() {
             var st;
             st = $(window).scrollTop();
-            console.log("st",st);
             if (st > 30) {
               return bt.css('display', 'block');
             } else {
